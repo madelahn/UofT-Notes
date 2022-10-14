@@ -1,0 +1,59 @@
+---
+title: "Tutorial 4"
+author: "Madeline Ahn"
+date: "2022-10-14"
+output: pdf_document
+---
+```{r}
+library(ggplot2)
+```
+
+## 1(a)-i
+```{r}
+pnorm(75,70,10)
+```
+
+## 1(a)-ii
+```{r}
+pnorm(60,70,10)
+```
+
+## 1(a)-iii
+```{r}
+pnorm(75, 70, 10) - pnorm(60, 70, 10)
+```
+
+## 1(a)-iv
+```{r}
+(1 - pnorm(85, 70, 10)) + pnorm(65, 70, 10)
+```
+
+## 1(b)-i
+```{r}
+qnorm(0.9911, 40, 6)
+```
+
+## 1(b)-ii
+```{r}
+qnorm((1 - 0.7995), 40, 6)
+```
+
+## 1(c)-i
+```{r}
+data_1 <- rnorm(10000, 70, 5)
+
+hist(data_1, prob=TRUE, ylim=c(0,0.1))
+lines(density(data_1))
+```
+
+## i(c) - ii
+```{r}
+data_2 <- rnorm(10000, 70, 20)
+
+hist(data_2, prob = TRUE, ylim = c(0,0.1))
+lines(density(data_2))
+```
+
+# 1(c)-iii
+The spread of the data is wider in Data 1, where the density reaches an upper limit around 0.08, whereas in Data 2, the density only reaches about 0.03.
+The mean of the graphs are the same between the two datasets.
