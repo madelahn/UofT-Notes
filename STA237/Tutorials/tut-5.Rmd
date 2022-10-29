@@ -1,0 +1,48 @@
+---
+title: "STA237 - Tutorial #5"
+author: "Madeline Ahn"
+date: "2022-10-21"
+output: pdf_document
+---
+First, we want to show that the sums of independent normal random variables are normal.
+We have $X_1 \sim N(1,4), i=1 \cdots, n$, and $\sum_1^n X_i$.
+
+```{r}
+mu1 = 1 # mean
+sigma1 = sqrt(4) # standard deviation
+N = 40000 # number of simulations
+n = 30 # sample size
+```
+
+```{r}
+sum_result = rep(0,N) # saves the sum of the generated sample with size n
+for (i in 1:N) {
+  one_sim = rnorm(n, mu1, sigma1)
+  sum_result[i] = sum(one_sim)
+}
+```
+
+Next, we can calculate the exact density function of a normally distributed random variable.
+We have: $Y \sim N(30,120)$.
+
+```{r}
+mu2 = 30
+sigma2 = sqrt(120)
+range = 50
+```
+
+```{r}
+y = seq(mu2 - range, mu2 + range, by=0.1)
+density = dnorm(y, mean=mu2, sd=sigma2)
+```
+
+
+Then, we can plot the probability histogram:
+
+```{r}
+hist(sum_result, prob=TRUE,
+     main = "Probability Histogram of the Sum and Exact Density
+     of a Normally Distributed Random Variable",
+     xlab = "Sum", ylab = "Probability", ylim=(c(0, 0.05)))
+lines(y, density)
+```

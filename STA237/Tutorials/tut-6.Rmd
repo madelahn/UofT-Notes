@@ -1,0 +1,51 @@
+---
+title: "Tutorial 6"
+author: "Madeline Ahn"
+date: "2022-10-28"
+output: pdf_document
+---
+We have: $$f(x) = \begin{cases}
+2e^{-2x} & x \leq 0;\\
+0 & \text{otherwise}
+\end{cases}$$
+
+## 1a)
+To get the distribution function of $X$, we calculate the integral:
+$$
+\begin{aligned}
+  F(x) & =\int_0^x 2e^{-2t} dt \\
+  & = \left[e^{-2t}\right]_x^0\\
+  & = 1 - e^{-2x}
+\end{aligned}
+$$
+Hence, we have $F(x) = 1 - e^{-2x}$ for $x \geq 0$.
+
+## 1b)
+We want the inverse of $F(x)$, so we have:
+$$
+\begin{aligned}
+F(x) & = 1 - e^{-2x}\\
+y & = 1 - e^{-2x}\\
+1 - y & = e^{-2x}\\
+\ln(1-y) & = -2x\\
+x & = -\frac{1}{2} \ln(1-y) 
+\end{aligned}
+$$
+Take the inverse function and use uniform distribution in order to sample the function.
+We know $f(x)$ looks similar to the exponential distribution $\lambda e^{-\lambda x}$, so let $\lambda = 2$.
+```{r}
+lambda = 2
+n = 100000 # The number of samples.
+y = runif(n, 0, 1) # Random uniform distribution function
+x = (-1/lambda) * log(1 - y)
+z = seq(0, 6, by=0.01)
+
+# Exact density function
+fz = dexp(z, lambda) # Exponential distribution
+```
+
+## 1c)
+```{r}
+hist(x, prob=TRUE, main="Probability Histogram", xlab="x", ylab="Probability")
+lines(z, fz)
+```
