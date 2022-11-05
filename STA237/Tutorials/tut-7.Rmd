@@ -1,0 +1,89 @@
+---
+title: "Tutorial 7"
+author: "Madeline Ahn"
+date: "2022-11-04"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## 1a)
+Let $X$ be the time it takes until the light fails, where $E(X) = 2$. 
+Then, let $Y$ be the time until the computer crashes, with $E(Y) = 3$.
+These follow an exponential distribution, so we have:
+$$f(x) = \frac{1}{2} e^{-x/2},\ \ \ x \geq 0$$
+$$f(y) = \frac{1}{3} e^{-x/3}, \ \ \ x \geq 0$$
+Because we are calculating the probability of both $X$ and $Y$, we can write:
+$$
+\newcommand{\indep}{\perp \!\!\! \perp}
+\begin{aligned}
+  X \indep Y & \implies f(x,y) = f(x) \cdot f(y)\\
+  & = \left(\frac{1}{2}e^{-x/2}\right) \cdot \left(\frac{1}{3}e^{-x/3}\right)\\
+  & = \frac{1}{6} e^{-x/2 \ - \ y/3}, \ \ \ \ \text{ if } x\geq 0, y \geq 0
+\end{aligned}
+$$
+Note that:
+$$
+F(X) = \int_0^x \frac{1}{\beta} e^{-t/\beta} dt\\
+P(X \leq x) = \left[ e^{-t/\beta} \right]_x^0 = 1 - e^{-x/\beta}
+P(X \geq x) = e^{-x/\beta} \ \ \text{ if } x \geq 0
+$$
+Thus, we have:
+$$
+\begin{aligned}
+P(X > 2, Y>2) & = P(X>2) \cdot P(Y > 2) \\
+& = e^{-2/2} \cdot e^{-2/3}\\
+& = e^{-5/3}\\
+& \approx 0.1889
+\end{aligned}$$
+
+
+## 1b)
+We define our variables:
+```{r}
+S = 200000 # Simulation size
+beta1 = 2 # Mean for lights failing (X)
+beta2 = 3 # Mean for computer crashing (Y)
+x = rexp(S, 1/beta1) # Simulated random variable X
+y = rexp(S, 1/beta2) # Simulated random variable Y
+```
+
+Now, we can calculate the simulated probability of (a):
+```{r}
+count_a = rep(0, S) 
+for (i in 1:S) {
+  if ((x[i] > 2) & (y[i] > 2)) { # Checks if it takes more than 2 hours for the failures to happen
+    count_a[i] = 1  # Marks it as a success if true
+  }
+}
+sum(count_a)/S  # Simulated probability
+```
+
+
+
+## 1c)
+We want to find $P(Y - X \geq 1)$. We have:
+$$\begin{aligned}
+P(Y - X \geq 1) & = \int_1^\infty \left[ \int_0^{y - 1} \frac{1}{6}e^{-x/2 \ - \ y/3} dx\right] dy\\
+& = \int_1^\infty \frac{1}{3} e^{-y/3} \left[ e^{-x/2}\right]_{y-1}^0 dy\\
+& = \frac{1}{3} \int_1^\infty e^{-y/3} \left( 1 - e^{-(y - 1)/2} \right) dy\\
+& = \frac{1}{3} \int_1^\infty e^{-y/3} dy - \frac{1}{3}e^{1/2} \int_1^\infty e^{-5y/6} dy\\
+& = \left[ e^{-y/3}\right]_\infty^1 - \frac{1}{3} e^{1/2} \frac{\left[ e^{-5y/6}\right]_\infty^1}{5/6}\\
+& = e^{-1/3} - \frac{2}{5} e^{1/2 - 5/6}\\
+& = \frac{3}{5} e^{-1/3}\\
+& \approx 0.4299
+\end{aligned}$$
+
+
+## 1d)
+```{r}
+count_b = rep(0, S)
+for (i in 1:S) {
+  if ((y[i] - x[i]) >= 1) {
+    count_b[i] = 1
+  }
+}
+
+sum(count_b)/S # Simulated Probability
+```
+
