@@ -1,0 +1,94 @@
+---
+title: "STA237 Tutorial 8"
+author: "Madeline Ahn"
+date: "2022-11-18"
+output: pdf_document
+---
+
+Definition. If $Y_1$ and $Y_2$ are random variables with means $\mu_1$, $\mu_2$ respextively, the covariance of $Y_1, Y_2$ is:
+$$Cov(Y_1, Y_2) = E\left[ (Y_1 - \mu_1)(Y_2 - \mu_2)\right] = E(Y_1, Y_2) - E(Y_1)E(Y_2)$$
+Note that if $Y_1, Y_2$ are independent random variables, then $Cov(Y_1, Y_2) = 0$.
+
+
+## Q1
+We have $f(y_1, y_2) = \begin{cases} 3y_1, & 0 \leq y_2 \leq y_1 \leq 1\\ 0, & \text{ otherwise }\end{cases}$.
+Then:
+$$\begin{aligned}
+E(Y_1, Y_2) & = \int_0^1 \left[\int_0^{y_1} y_1y_2(3y_1) dy_2 \right] \ dy_1\\
+& = \int_0^1 3y_1^2 \left[ \int_0^{y_1} y_2 dy_2 \right] dy_1\\
+& = \int_0^1 3y_1^2 \left[ \frac{y_2^2}{2}\right]_0^{y_1} dy_1\\
+& = \int_0^1 3y_1^2 \left( \frac{y_1^2}{2} \right) dy_1\\
+& = \int_0^1 \frac{3}{2}y_1^4 \ dy_1\\
+& = \frac{3}{2} \left[ \frac{y_1^5}{5}\right]_0^1\\
+& = \frac{3}{10}
+\end{aligned}$$
+Then, to calculate the marginal density, we have:
+$$\begin{aligned}
+f(y_1) & =  \int_0^{y_1} 3y_1 \ dy_2\\
+& = 3y_1 \left[ y_2 \right]_0^{y_1}\\
+& = 3y_1^2, \ \ \text{ if } 0 \leq y_1 \leq 1
+\end{aligned}$$
+Now, we can calculate the expected value of $Y_1$:
+$$\begin{aligned}
+E(Y_1) & = \int_0^1 y_1 \cdot 3 y_1^2 \ dy_1\\
+& = \int_0^1 3y_1^3 \ dy_1\\
+& = 3 \left[ \frac{y_1^4}{4}\right]_0^1\\
+& = \frac{3}{4}
+\end{aligned}$$
+
+Finally, we calculate the marginal density of $Y_2$:
+$$\begin{aligned}
+f(y_2) & = \int_{y_2}^1 3y_1 \ dy_1\\
+& = 3 \left[ \frac{y_1^2}{2}\right]_{y_2}^1\\
+& = \frac{3}{2}(1 - y_2^2), \ \ \text{ if } 0 \leq y_2 \leq 1
+\end{aligned}$$
+And get the expected value for $Y_2$:
+$$\begin{aligned}
+E(Y_2) & = \int_0^1 y_2 \frac{3}{2}(1 - y_2^2) \ dy_2\\
+& = \frac{3}{2} \left[ \frac{y_2^2}{2} - \frac{y_2^4}{4}\right]_0^1\\
+& = \frac{3}{2}\left(\frac{1}{2} - \frac{1}{4}\right)\\
+& = \frac{3}{2} \cdot \frac{1}{4}\\
+& = \frac{3}{8}
+\end{aligned}$$
+
+Therefore:
+$$\begin{aligned}
+Cov(Y_1,Y-2) & = \frac{3}{10} - \frac{3}{4} \cdot \frac{3}{8}\\
+& = \frac{3}{160}\\
+& = 0.01875
+\end{aligned}$$
+
+\newpage
+## Q2
+Using the table, we have:
+$$\begin{aligned}
+P(Y_1 = -1) & = \frac{5}{16}\\
+P(Y_1 = 0) & = \frac{6}{16}\\
+P(Y_1 = 1) & = \frac{5}{16}\\
+\\
+P(Y_2 = -1) & = \frac{5}{16}\\
+P(Y_2 = 0) & = \frac{6}{16}\\
+P(Y_2 = 1) & = \frac{5}{16}
+\end{aligned}$$
+
+Take $P(Y_1 = 0, Y_2 = 0)$, which is equal to 0.
+However, if we multiply $P(Y_1=0) \cdot P(Y_2 = 0)$, we have $\frac{6}{16} \cdot \frac{6}{16}$, which is not equal to $P(Y_1 = 0, Y_2 = 0)$.
+
+So now, we consider $E(Y_1, Y_2)$:
+$$\begin{aligned}
+E(Y_1, Y_2) & = \sum_{y_1} \sum_{y_2} y_1 \ y_2 \ P(Y_1 = y_1, Y_2 = 2)\\
+& = \left[-1 \cdot -1 \cdot \frac{1}{16} \right] + \left[0 \cdot -1 \cdot \frac{3}{16} \right] + \left[ 1 \cdot -1 \cdot \frac{1}{16} \right] + \left[-1 \cdot 0 \cdot \frac{3}{16}\right]\\
+& = \frac{1}{16} - \frac{1}{16} - \frac{1}{16} + \frac{1}{16}\\
+& = 0
+\end{aligned}$$
+Then, consider $E(Y_1)$ and $E(Y_2)$:
+$$\begin{aligned}
+E(Y_1) & = \sum_{y_1} y-1 \ P(Y_1 = y_1)\\
+& = -1 \cdot \frac{5}{16} + \left( 0 \cdot \frac{6}{16}\right) = \left( 1 \cdot \frac{5}{16}\right)\\
+& = 0\\
+\\
+E(Y_2) & = \sum_{y_2} y_2 \ P(Y_2 = y_2\\
+& = 0
+\end{aligned}$$
+
+Therefore, independence implies that the covariance is 0, however, the covariance being equal to 0 does not imply independence.
