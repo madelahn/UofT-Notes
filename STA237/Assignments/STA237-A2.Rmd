@@ -1,0 +1,346 @@
+---
+title: "STA237 - Assignment 2"
+output: pdf_document
+---
+
+### 1(a)
+Let $Y \to$ Human Pregnancies. We are given a mean $\mu = 270$ and a standard deviation $\sigma = 15$.
+We have $Y \sim N(270, 15)$, and want to find $P(260 \leq Y \leq 275)$.
+Standardize the probability, and solve using the Normal Curve Table:
+$$\begin{aligned}
+P\left(\frac{260 - 270}{15} \leq \frac{Y - \mu}{\sigma} \leq \frac{275 - 270}{15}\right) & = P\left(\frac{-2}{3} \leq Z \leq \frac{1}{3}\right)\\
+& = P\left(Z \leq \frac{1}{3}\right) - P\left(Z < \frac{-2}{3}\right)\\
+& \approx 0.6293 - 0.2546\\
+& = 0.3747
+\end{aligned}$$
+
+### 1(b)
+We want to find $P(Z > z_0) = 0.8$; that is:
+$$1 - P(Z \leq z_0) = 0.8 \implies P(Z \leq z_0) = 0.2$$
+Using the Normal Curve Table, we have:
+$$\begin{aligned}
+z_0 & = 0.85 \\\
+0.85 & = \frac{y - 270}{15}\\
+12.75 & = y - 270\\
+y & = 282.75 \text{ days }
+\end{aligned}$$
+
+### 1(c)
+We want to find the probability for the mean of less than 265 days. We are given $\mu_{\overline{Y}} = 270$ and $\sigma_{\overline{Y}} = \frac{15}{\sqrt{60}} \approx 1.9365$. Thus, we have:
+$$\begin{aligned}
+P(Z < \frac{265 - 270}{1.9365}) & \approx P(Z < -2.5820)\\
+& = 0.0049
+\end{aligned}$$
+
+### 1(d)
+We want to find the probability for the mean between 265 and 269 days. We have $\mu_{\overline{Y}} = 270$ and $\sigma_{\overline{Y}} \approx 1.9365$. We calculate:
+$$\begin{aligned}
+P\left(\frac{265 - 270}{1.9365} < Z < \frac{269 - 270}{1.9365} \right) & = P(-2.5820 < Z < -0.5164)\\
+& = P(Z < -0.5164) - P(Z < -2.5820)\\
+& = 0.3085 - 0.0049\\
+& = 0.3036
+\end{aligned}$$
+
+\newpage
+
+### 2(a)
+We have $f_1(y_1) = \int_{-\infty}^{\infty} f(y_1, y_2) \ dy_2$.
+The integral is integrated by the intersection of the function, so we have:
+$$\begin{aligned}
+f_1(x) & = \int_{x}^{2 - x} 6x^2 t \ dt\\
+& = 6y_1^2 \int_{y_1}^{2 - y_1} y_2 \ dy_2\\
+& = (6y_1^2)\left[\frac{y_2^2}{2}\right]_{y_1}^{2 - y_1}\\
+& = (6y_1)^2\left(\frac{(2 - y_1)^2 - (y_1)^2}{2}\right)\\
+& = 6y_1^2 \left(\frac{4 - 4y_1 + y_1^2 - y_1^2}{2}\right)\\
+& = 6y_1^2 (2 - 2x)\\
+& = 12y_1^2(1 - y_1)
+\end{aligned}$$
+Then, we use the beta function $t^{\alpha -1}(1 - t)^{\beta - 1}$ and get:
+$$\alpha - 1 = 2 \ \implies \ \alpha = 3\\
+\beta - 1 = 1 \ \implies \ \beta = 2$$
+
+### 2(b)
+We want to show $P(Y_2 \geq 1|Y_1 \geq 0.5)$. That is,
+$$\frac{P(Y_2 \geq 1, Y_1 \geq 0.5) }{P(Y_1 \geq 0.5)}$$
+First, we can calculate the denominator:
+$$\begin{aligned}
+P(Y_1 \geq 0.5) & = \int_{0.5}^1 \left[ 12y_1^2(1 - y_1) \ dy_1 \right]\\
+& = \int_{0.5}^1 12y_1^2 - 12y_1^3 \ dy_1\\
+& = \left[4y_1^3 - 3y_1^4\right]_{0.5}^1\\
+& = 1 - \frac{5}{16}\\
+& = \frac{11}{16}
+\end{aligned}$$
+Next, calculate the numerator. We already have the density function from (a), so:
+$$\begin{aligned}
+P(Y_1 \geq 1, Y_1 \geq 0.5) & = \int_{0.5}^1 \left[\int_{1}^{2 - y_1} 6y_1^2 y_2 \ dy_2\right] dy_1\\
+& = \int_{0.5}^1 6y_1^2 \left[\frac{y_2^2}{2}\right]_1^{2- y_1} dy_1\\
+& = \int_{0.5}^1 6y_1^2 \left(\frac{4 - 4y_1 + y_1^2}{2} - \frac{1}{2}\right) dy_1\\
+& = \int_{0.5}^1 9y_1^2 - 12y_1^3 + 3y_1^4 \ dy_1 \\
+& = \left[3y_1^3 - 3y_1^4 + \frac{3}{5} y_1^5\right]_{0.5}^1\\
+& = \frac{3}{5} - \frac{33}{160}\\
+& = \frac{63}{160}
+\end{aligned}$$
+Finally, we solve:
+$$\begin{aligned}
+P(Y_2 \geq 1| Y_1 \geq 0.5) & = \frac{63/160}{11/16}\\
+& = \frac{63}{110}\\
+& = 0.5727
+\end{aligned}$$
+
+### 2(c)
+We want to find the conditional density of $Y_2$ given $Y_1 = y_1$.
+We have:
+$$\frac{f(y_1, y_2)}{f(y_1)}$$
+We have:
+$$\begin{aligned}
+f(y_1|y_2) & = \frac{6y_1^2 y_2}{12y_1^2(1 - y_1)}\\
+& = \frac{1}{2(1-y_1)}
+\end{aligned}$$
+Hence:
+$$f(y_2 | y_1) = \begin{cases}
+\frac{1}{2(1-y_1)}, & 0, \leq y_1 \leq y_2,\ y_1 + y_2 \leq 2\\
+0 & \text{ otherwise}\end{cases}$$
+
+### 2(d)
+We want to show $P(Y_2 > 0.8 | Y_1 = 0.5)$. From part (c), we have:
+$$\begin{aligned}
+\frac{y_2}{2(1 - 0.5)} & = \frac{y_2}{1}
+\end{aligned}$$
+So, 
+$$P(Y_2 = y_2|Y_1 = 0.5) = \begin{cases} y_2, & 0.6 \leq y_2 \leq 1.5\\
+0, & \text{otherwise}\end{cases}$$
+Then, we can take the integral:
+$$\begin{aligned}
+P(Y_2 > 0.8|Y_1 = 0.5) & = \int_{0.8}^{1.5} y_2 \ dy_2\\
+& = \left[\frac{y_2^2}{2}\right]_{0.8}^{1.5}\\
+& = \frac{1.5^2}{2} - \frac{0.8^2}{2}\\
+& = 0.805
+\end{aligned}$$
+\newpage
+
+### 3(a)
+We want to find $P(Y_1 \leq 1, Y_2 \leq 1)$. We use the joint probability mass function:
+$$\begin{aligned}
+P(Y_1 \leq 1, Y_2 \leq 1) & = 0.15 + 0.35 + 0.06 + 0.26\\
+& = 0.82
+\end{aligned}$$
+
+### 3(b)
+We want to find the marginal probability functions of $Y_1, Y_2$. We take each row and column of the joint probability mass function and get:
+$$\begin{aligned}
+y_1 = 0: 0.24\\
+y_1 = 1: 0.76\\
+y_2 = 0: 0.5\\
+y_2 = 1: 0.32\\
+y_2 = 2: 0.18
+\end{aligned}$$
+Hence:
+$$f(y_1) = \begin{cases}0.24, & y_1 = 0\\
+0.76, & y_1 = 1
+\end{cases}\ , \ \ \ \
+f(y_2) = \begin{cases}
+0.5, & y_2 = 0\\
+0.32, & y_2 = 1\\
+0.18,&  y_2 = 2
+\end{cases}
+$$
+
+### 3(c)
+We want to show $P(Y_2 = y_2 | Y_1 = 0)$. We have:
+$$\frac{P(Y_2 = y_2, Y_1 = 1)}{P(Y_1 = 0)}$$
+So:
+$$\begin{aligned}
+\frac{P(Y_2 = 0, Y_1 = 1)}{P(Y_1 = 0)} & = \frac{0.15}{0.24} = 0.624\\
+\frac{P(Y_2 = 1, Y_1 = 1)}{P(Y_1 = 0)} & = \frac{0.06}{0.24} = 0.25\\
+\frac{P(Y_2 = 2, Y_1 = 1)}{P(Y_1 = 0)} & = \frac{0.03}{0.24} = 0.125
+\end{aligned}$$
+
+### 3(d)
+We want to show $P(Y_1 = 0 | Y_2 = 2)$. We have:
+$$\begin{aligned}
+\frac{P(Y_1 = 0, Y_2 = 2)}{P(Y_2 = 2)} & = \frac{0.03}{0.18}\\
+& \approx 0.1667
+\end{aligned}$$
+
+\newpage
+
+### 4(a)
+We want to find the CDF of $X$.
+We have $F(x_1) = P(X \leq x_1), -\infty < x < \infty$, and $f(x) = \frac{e^{-x}}{(1+ e^{-x})^2}, -\infty < x < \infty$.
+Then, 
+$$F(x) = \int_{-\infty}^{x_1} \frac{e^{-x}}{(1+e^{-x})^2} dx$$
+X follows a standard logistic distribution, so we have:
+$$\begin{aligned}
+F(x) & = \frac{e^{-x_1}}{1 + e^{-x_1}}\\
+\text{Replace } x_1 \text{ with } x & \text{ and use the standard logistic distribution}.\\
+F(x) & = \frac{1}{1 + e^{-x}}, \ -\infty < x < \infty 
+\end{aligned}$$
+
+### 4(b)
+First, we want to calculate the inverse. We have:
+$$\begin{aligned}
+F(x) & = y = \frac{1}{1 + e^{-x}}\\ 1 + e^{-x} & = \frac{1}{y} \\
+e^{-x} & = \frac{1}{y} - 1, \\
+x&  =  -\ln\left(\frac{1}{y} - 1\right)
+\end{aligned}$$
+Next, we can simulate a random variable with the specified cdf in R:
+```{r}
+n = 1000 # Sample Size
+y = runif(n, 0, 1) # Samples (set to either 0 or 1)
+
+x = (-1) * log((1/y) - 1) # Our inverse to the cdf
+
+z = seq(-10, 10, by=0.1) # Used for graphing lines of a histogram
+fz = dlogis(z) # Used for graphing lines of a histogram
+```
+
+### 4(c)
+```{r}
+n = 100000
+y = runif(n, 0, 1)
+
+x = (-1) * log((1/y) - 1)
+
+z = seq(-10, 10, by=0.1)
+fz = dlogis(z)
+```
+
+### 4(d)
+```{r}
+hist(x, prob=TRUE,
+     main="Probability Histogram",
+     xlab="x", ylab="y",
+     ylim=c(0, 0.25), xlim=c(-10,10))
+lines(z, fz)
+```
+
+\newpage
+
+### 5(a)
+We want to show $p(x + 1) = \frac{\lambda}{x+ 1}p(x)$. We know $p(x) = \frac{e^{-\lambda}\lambda^x}{x!}$, and so using this formula we have $p(x+1) = \frac{e^{-\lambda}\lambda^{x+1}}{(x+1)!}$
+For our base case, let $x = 0$. We have:
+$p(x) = \frac{e^{-\lambda}\lambda^0}{0!}$, and so: 
+$$p(0+1) = \frac{\lambda}{0 + 1}\frac{e^{-\lambda}\lambda^0}{0!} = \frac{e^{\lambda} \lambda^1}{1!},$$
+as required (since $p(1) = \frac{e^{-\lambda}\lambda^1}{1!}$).
+Then, in general, to show this is equal to the given formula we have:
+$$\begin{aligned}
+p(x+1) & = \frac{\lambda}{x + 1}p(x)\\
+& = \frac{\lambda}{x+1} \cdot \frac{e^{-\lambda}\lambda^x}{x!}\\
+& = \frac{e^{-\lambda}\lambda^{(x+1)}}{(x+1)!},
+\end{aligned}$$
+where by laws of exponents and factorial rules, we know $\lambda \cdot \lambda^x = \lambda^{x+1}$, and $(x+1) \cdot x! = (x+1)!$.
+Hence, $p(x+1) = \frac{\lambda}{(x+1)}p(x)$ is satisfied.
+
+### 5(b)
+```{r}
+p = function(lambda, x) {
+  if (x == 0) {
+    return( exp(-lambda) )
+  } else {
+    result = p(lambda, (x - 1)) * lambda/(x)
+    return(result)
+  }
+}
+```
+
+### 5(c)
+```{r}
+F = function(lambda, x) {
+  sum = 0
+  for (i in 0:x) {
+    sum = sum + p(lambda, i)
+  }
+  return(sum)
+}
+```
+
+### 5(d)
+```{r}
+F.rand = function(lambda) {
+  u = runif(1)
+  x = 0
+  p.x = exp(-lambda)
+    F.x = p.x
+    while (F.x < u) {
+      x = x + 1
+      p.x = p(lambda, x)
+      F.x = F(lambda, x)
+    }
+  return(x)
+}
+```
+
+### 5(e)
+```{r message=FALSE}
+lambda = 5
+n = 100000
+sum_result = rep(0, n)
+
+for (i in 1:n) {
+  one_sim = F.rand(lambda)
+  sum_result[i] = sum(one_sim)
+}
+```
+
+### 5(f)
+```{r}
+z = seq(0, 15, by=1)
+fz = dpois(z, 5)
+```
+
+```{r}
+hist(sum_result, prob=TRUE,
+     main="Probability Histogram for Lambda = 5",
+     xlab="x", ylab="y", ylim=(c(0,0.2)))
+lines(z, fz)
+```
+
+\newpage
+
+### 6(a)
+We want to find $P(Y_1 - Y_2 \geq 1)$. We write:
+$$\begin{aligned}
+P(Y_1 - Y_2 \geq 1) & = \int_{1}^\infty \left[\int_0^{y_1 - 1} e^{-y_1} dy_2\right] dy_1\\
+& = \int_1^\infty e^{-y_1} \left[y_2\right]_0^{y_1 - 1} dy_1\\
+& = \lim_{b \to \infty} \int_1^b e^{-y_1} (y_1 - 1) dy_1\\
+& \text{Integrate by parts.}\\
+& = \lim_{b \to \infty} \left[\left[-(y_1e^{-y_1} - e^{-y_1})\right]_1^b - \int_1^b -e^{-y_1} dy_1\right]\\
+& = \lim_{b \to \infty} \left[ -(be^{-b} - e^{-b}) - (-e^{-1} + e^{-1}) - [e^{-y_1}]_1^b\right]\\
+& = \lim_{b \to \infty} \left[-be^{-b} + e^{-b} + e^{-1} - e^{-1} - e^{-b} + e^{-1}\right]\\
+& = \lim_{b \to \infty} [-be^{-b} + e^{-1}]\\
+& = 0 + \frac{1}{e}\\
+& = \frac{1}{e}
+\end{aligned}$$
+
+### 6(b)
+We want to find the marginal density functions for $Y_1, Y_2$.
+$$\begin{aligned}
+f_1(y_1) & = \int_{-\infty}^\infty f(y_1,y_2) dy_2\\
+& = \int_{0}^{y_1} e^{-y_1} dy_2\\
+& = e^{-y_1} \left[y_2\right]_0^{y_1}\\
+& = y_1e^{-y_1}, \ \ 0 \leq y_1 \leq \infty\\
+\\
+f_2(y_2) & = \int_{-\infty}^\infty f(y_1, y_2) dy_1\\
+& = \int_{y_2}^\infty e^{-y_1} dy_1\\
+& = \left[-e^{-y_1}\right]_{y_2}^\infty\\
+& = \lim_{c \to \infty} (-e^{-c}) - (-e^{-y_2})\\
+& = e^{-y_2}, \ \ 0 \leq y_2 \leq \infty
+\end{aligned}$$
+
+### 6(c)
+We want to find the conditional density function of $Y_1$ given $Y_2 = y_2$.
+$$\begin{aligned}
+f(y_1|y_2) & = \frac{f(y_1,y_2)}{f(y_2)}\\
+& = \frac{e^{-y_1}}{e^{-y_2}}
+\end{aligned}$$
+
+### 6(d)
+We want to find the conditional density of $Y_2$ given $Y_1 = y_1$.
+$$\begin{aligned}
+f(y_2|y_1) & = \frac{f(y_1, y_2)}{f(y_1)}\\
+& = \frac{e^{-y_1}}{y_1e^{-y_1}}\\
+& = \frac{1}{y_1}
+\end{aligned}$$
+
+### 6(e)
+No, the conditional density function is not the same as the marginal density function (i.e., $e^{-y_2} \neq \frac{e^{-y_1}}{e^{-y_2}}$).
